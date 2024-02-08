@@ -9,6 +9,7 @@ import {
 import InboxIcon from "@mui/icons-material/Inbox";
 import { CalendarMonth, Label, Today } from "@mui/icons-material";
 import { navbarTitleContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 type AsideTypes = {
   open: boolean;
@@ -16,8 +17,8 @@ type AsideTypes = {
 
 const Aside: React.FC<AsideTypes> = ({ open }) => {
   const { title, setTitle } = useContext(navbarTitleContext);
+  const navigate = useNavigate();
 
-  const [activeItem, setActiveItem] = useState<string>("")
 
   return (
     <div className="text-gray-300">
@@ -25,7 +26,10 @@ const Aside: React.FC<AsideTypes> = ({ open }) => {
         <ListItem
           disablePadding
           sx={{ display: "block", backgroundColor: `${title === 'Inbox' ? '#1D4ED8' : "null"}` }}
-          onClick={() => setTitle("Inbox")}
+          onClick={() => {
+            setTitle("Inbox")
+            navigate("/")
+          }}
         >
           <ListItemButton
             sx={{
@@ -103,7 +107,10 @@ const Aside: React.FC<AsideTypes> = ({ open }) => {
         <ListItem
           disablePadding
           sx={{ display: "block", backgroundColor: `${title === 'Labels' ? '#1D4ED8' : "null"}` }}
-          onClick={() => setTitle("Labels")}
+          onClick={() => {
+            setTitle("Labels")
+            navigate("/labels")
+          }}
         >
           <ListItemButton
             sx={{
