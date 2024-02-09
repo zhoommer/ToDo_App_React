@@ -54,7 +54,10 @@ const Aside: React.FC<AsideTypes> = ({ open }) => {
         <ListItem
           disablePadding
           sx={{ display: "block", backgroundColor: `${title === 'Today' ? '#1D4ED8' : "null"}` }}
-          onClick={() => setTitle("Today")}
+          onClick={() => {
+            setTitle("Today")
+            navigate("/today")
+        }}
         >
           <ListItemButton
             sx={{
@@ -79,7 +82,10 @@ const Aside: React.FC<AsideTypes> = ({ open }) => {
         <ListItem
           disablePadding
           sx={{ display: "block", backgroundColor: `${title === 'Scheduled' ? '#1D4ED8' : "null"}` }}
-          onClick={() => setTitle("Scheduled")}
+          onClick={() => {
+            setTitle("Scheduled")
+            navigate('/scheduled')
+          }}
         >
           <ListItemButton
             sx={{
