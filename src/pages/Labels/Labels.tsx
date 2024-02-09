@@ -6,11 +6,36 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
-import { pink } from "@mui/material/colors";
 
 // const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-const labels = ["Work", "School", "Delegated", "Home", "Follow up"];
+const labels = [
+  {
+    value: "WORK",
+    label: "Work",
+    color: "#4e79a7",
+  },
+  {
+    value: "SCHOOL",
+    label: "Scholl",
+    color: "#f28e2c",
+  },
+  {
+    value: "DELEGATED",
+    label: "Delegated",
+    color: "#e15759",
+  },
+  {
+    value: "HOME",
+    label: "Home",
+    color: "#76b7b2",
+  },
+  {
+    value: "FOLLOW_UP",
+    label: "Follow up",
+    color: "#59a14f",
+  },
+];
 
 const checkboxColors = [
   "#4e79a7",
@@ -30,13 +55,12 @@ const Labels: React.FC = () => {
 
   const handleChangeCheckBox = (id: number) => {
     const isSelected = selectedCheckbox.includes(id);
-    if(isSelected) {
+    if (isSelected) {
       setSelectedChecbox(selectedCheckbox.filter((item) => item !== id));
     } else {
-      setSelectedChecbox([...selectedCheckbox, id])
+      setSelectedChecbox([...selectedCheckbox, id]);
     }
   };
-
 
   return (
     <div>
@@ -61,17 +85,19 @@ const Labels: React.FC = () => {
               key={index + 1}
               control={
                 <Checkbox
-                  onChange={() => {handleChangeCheckBox(index + 1)}}
+                  onChange={() => {
+                    handleChangeCheckBox(index + 1);
+                  }}
                   checked={selectedCheckbox.includes(index + 1)}
                   sx={{
-                    color: `${checkboxColors[index]}`,
+                    color: label.color,
                     "&.Mui-checked": {
-                      color: `${checkboxColors[index]}`,
+                      color: label.color,
                     },
                   }}
                 />
               }
-              label={label}
+              label={label.label}
             />
           ))}
         </FormGroup>
