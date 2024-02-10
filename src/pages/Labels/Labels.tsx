@@ -7,6 +7,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/app/store";
+import AddLabelModal from "../../components/AddLabelModal";
 import { fetchLabels } from "../../redux/features/Labels/labelSlice";
 
 const checkboxColors = [
@@ -27,6 +28,11 @@ const Labels: React.FC = () => {
   const dispatch = useAppDispatch();
   const labels = useAppSelector((state) => state.labels)
 
+
+  const [openAddLabelModal, setOpenAddLabelModal] = useState<boolean>(false);
+
+  const handleCloseAddLabelModal = () => setOpenAddLabelModal(!openAddLabelModal);
+
   useEffect(() => {
     dispatch(fetchLabels())
   }, [])
@@ -43,6 +49,7 @@ const Labels: React.FC = () => {
 
   return (
     <div>
+      <AddLabelModal open={openAddLabelModal} handleClose={handleCloseAddLabelModal}/>
       <div className="text-gray-300 flex">
         <div
           className="border border-b-gray-700 border-t-0 border-l-0 border-r-0 p-1"
@@ -50,8 +57,8 @@ const Labels: React.FC = () => {
         >
           Labels:
         </div>
-        <div className="relative right-5 bottom-2 hover:border rounded-full border-gray-500 ease-in duration-300">
-          <IconButton>
+        <div className="relative right-5 bottom-2 hover:bg-slate-500 rounded-full">
+          <IconButton onClick={handleCloseAddLabelModal}>
             <Add className="text-gray-300" />
           </IconButton>
         </div>
@@ -59,7 +66,7 @@ const Labels: React.FC = () => {
 
       <div className="flex flex-col w-10 text-gray-300">
         <FormGroup>
-          {labels.data?.map((label, index) => (
+          {labels.data?.map((label: any, index: any) => (
             <FormControlLabel
               key={index + 1}
               control={

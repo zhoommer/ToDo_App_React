@@ -1,22 +1,9 @@
 import React from "react";
 import { Modal, Box, TextField, IconButton, Button } from "@mui/material";
 import { CalendarMonth, Label } from "@mui/icons-material";
+import { style } from "./AddLabelModal";
 
-const style = {
-  position: "absolute" as "absolute",
-  display: "flex",
-  flexDirection: "column",
-  top: "30%",
-  left: "55%",
-  transform: "translate(-50%, -50%)",
-  width: "800px",
-  color: "f1f1f1",
-  bgcolor: "#151515",
-  border: "2px solid #000",
-  borderRadius: "10px",
-  boxShadow: 24,
-  p: 4,
-};
+
 
 type AddToDoModalTypes = {
   open: boolean;
