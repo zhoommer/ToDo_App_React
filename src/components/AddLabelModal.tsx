@@ -1,5 +1,7 @@
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useAppDispatch } from "../redux/app/store";
+import { createLabel } from "../redux/features/Labels/labelSlice";
 
 export const style = {
   position: "absolute" as "absolute",
@@ -23,6 +25,7 @@ interface AddLabelModal {
 }
 
 const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
+  const dispatch = useAppDispatch();
   const [label, setLabel] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const [disabledButton, setDisabledButton] = useState<boolean>(false);
@@ -37,7 +40,11 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
   }, [label, color])
 
   const handleSubmit = () => {
-    console.log({label, color})
+    const data = {
+      label: label,
+      color: color
+    }
+    dispatch(createLabel(data))
   }
   return (
     <div>
