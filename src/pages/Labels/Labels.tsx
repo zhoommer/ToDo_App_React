@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Add } from "@mui/icons-material";
 import {
   IconButton,
@@ -6,36 +6,8 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
-
-// const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-const labels = [
-  {
-    value: "WORK",
-    label: "Work",
-    color: "#4e79a7",
-  },
-  {
-    value: "SCHOOL",
-    label: "Scholl",
-    color: "#f28e2c",
-  },
-  {
-    value: "DELEGATED",
-    label: "Delegated",
-    color: "#e15759",
-  },
-  {
-    value: "HOME",
-    label: "Home",
-    color: "#76b7b2",
-  },
-  {
-    value: "FOLLOW_UP",
-    label: "Follow up",
-    color: "#59a14f",
-  },
-];
+import { useAppDispatch, useAppSelector } from "../../redux/app/store";
+import { fetchLabels } from "../../redux/features/Labels/labelSlice";
 
 const checkboxColors = [
   "#4e79a7",
@@ -52,6 +24,12 @@ const checkboxColors = [
 
 const Labels: React.FC = () => {
   const [selectedCheckbox, setSelectedChecbox] = useState<number[]>([]);
+  const dispatch = useAppDispatch();
+  const labels = useAppSelector((state) => state.labels)
+
+  useEffect(() => {
+    dispatch(fetchLabels())
+  }, [])
 
   const handleChangeCheckBox = (id: number) => {
     const isSelected = selectedCheckbox.includes(id);
@@ -61,6 +39,7 @@ const Labels: React.FC = () => {
       setSelectedChecbox([...selectedCheckbox, id]);
     }
   };
+
 
   return (
     <div>
@@ -80,7 +59,7 @@ const Labels: React.FC = () => {
 
       <div className="flex flex-col w-10 text-gray-300">
         <FormGroup>
-          {labels.map((label, index) => (
+          {labels.data?.map((label, index) => (
             <FormControlLabel
               key={index + 1}
               control={
