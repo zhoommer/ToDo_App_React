@@ -5,6 +5,7 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
+  CircularProgress,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/app/store";
 import AddLabelModal from "../../components/AddLabelModal";
@@ -26,16 +27,16 @@ const checkboxColors = [
 const Labels: React.FC = () => {
   const [selectedCheckbox, setSelectedChecbox] = useState<number[]>([]);
   const dispatch = useAppDispatch();
-  const labels = useAppSelector((state) => state.labels)
-
+  const labels = useAppSelector((state) => state.labels);
 
   const [openAddLabelModal, setOpenAddLabelModal] = useState<boolean>(false);
 
-  const handleCloseAddLabelModal = () => setOpenAddLabelModal(!openAddLabelModal);
+  const handleCloseAddLabelModal = () =>
+    setOpenAddLabelModal(!openAddLabelModal);
 
   useEffect(() => {
-    dispatch(fetchLabels())
-  }, [])
+    dispatch(fetchLabels());
+  }, []);
 
   const handleChangeCheckBox = (id: number) => {
     const isSelected = selectedCheckbox.includes(id);
@@ -46,10 +47,15 @@ const Labels: React.FC = () => {
     }
   };
 
-
   return (
     <div>
-      <AddLabelModal open={openAddLabelModal} handleClose={handleCloseAddLabelModal}/>
+      { labels.loading && (
+        <CircularProgress color="inherit" />
+      ) }
+      <AddLabelModal
+        open={openAddLabelModal}
+        handleClose={handleCloseAddLabelModal}
+      />
       <div className="text-gray-300 flex">
         <div
           className="border border-b-gray-700 border-t-0 border-l-0 border-r-0 p-1"
@@ -64,7 +70,7 @@ const Labels: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col w-10 text-gray-300">
+      <div className="flex flex-col w-40 text-gray-300 ">
         <FormGroup>
           {labels.data?.map((label: any, index: any) => (
             <FormControlLabel

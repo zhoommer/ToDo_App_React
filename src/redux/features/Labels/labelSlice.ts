@@ -22,8 +22,12 @@ export const fetchLabels = createAsyncThunk("fetchLabels", async () => {
 
 export const createLabel = createAsyncThunk("createLabel", async(data: any) => {
 	const client = axiosClient();
-	const response = await client.post("add-label", data)
-	return response.data;
+	try {
+		const label = await client.post("add-label", data)
+		return label;
+	} catch (error) {
+		console.log(error)
+	}
 })
 
 const labelSlice = createSlice({
@@ -48,7 +52,7 @@ const labelSlice = createSlice({
 			state.loading = true;
 			state.error = "";
 		})
-		builder.addCase(createLabel.fulfilled, (state, action: PayloadAction<[LabelDataInterface]>) => {
+		builder.addCase(createLabel.fulfilled, (state, action: any) => {
 			state.data = action.payload;
 			state.loading = false;
 		})

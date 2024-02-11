@@ -1,4 +1,10 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch } from "../redux/app/store";
 import { createLabel } from "../redux/features/Labels/labelSlice";
@@ -32,20 +38,20 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
 
 
   useEffect(() => {
-    if((label.length > 0 && color.length > 0)) {
-        setDisabledButton(false);
+    if (label.length > 0 && color.length > 0) {
+      setDisabledButton(false);
     } else {
-        setDisabledButton(true);
+      setDisabledButton(true);
     }
-  }, [label, color])
+  }, [label, color]);
 
   const handleSubmit = () => {
     const data = {
       label: label,
-      color: color
-    }
-    dispatch(createLabel(data))
-  }
+      color: color,
+    };
+    dispatch(createLabel(data));
+  };
   return (
     <div>
       <Modal
@@ -81,7 +87,12 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
           />
 
           <div className="mt-5 flex justify-center">
-            <Button variant="contained" onClick={handleSubmit} disabled={disabledButton}>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={handleSubmit}
+              disabled={disabledButton}
+            >
               Add Label
             </Button>
           </div>
