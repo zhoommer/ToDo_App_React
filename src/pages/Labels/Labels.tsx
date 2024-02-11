@@ -6,6 +6,8 @@ import {
   FormGroup,
   FormControlLabel,
   CircularProgress,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../redux/app/store";
 import AddLabelModal from "../../components/AddLabelModal";
@@ -52,6 +54,14 @@ const Labels: React.FC = () => {
       { labels.loading && (
         <CircularProgress color="inherit" />
       ) }
+      {
+        labels.success && (
+          <Alert severity="success" color="success" variant="filled" className="absolute bottom-20 left-30">
+            <AlertTitle>Success</AlertTitle>
+            Label added successfully.
+          </Alert>
+        )
+      }
       <AddLabelModal
         open={openAddLabelModal}
         handleClose={handleCloseAddLabelModal}
@@ -72,9 +82,9 @@ const Labels: React.FC = () => {
 
       <div className="flex flex-col w-40 text-gray-300 ">
         <FormGroup>
-          {labels.data?.map((label: any, index: any) => (
+          {labels?.data?.map((label: any, index: any) => (
             <FormControlLabel
-              key={index + 1}
+              key={index}
               control={
                 <Checkbox
                   onChange={() => {

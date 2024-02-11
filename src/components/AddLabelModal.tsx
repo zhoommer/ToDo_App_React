@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Modal,
@@ -46,11 +47,16 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
   }, [label, color]);
 
   const handleSubmit = () => {
-    const data = {
+    try {
+      const data = {
       label: label,
       color: color,
     };
     dispatch(createLabel(data));
+    } catch (error) {
+      console.log(error)
+    }
+    
   };
   return (
     <div>

@@ -5,12 +5,14 @@ import { LabelDataInterface } from "../../../types/LabelInterface";
 interface LabelState {
   data: [LabelDataInterface] | null;
   loading: boolean;
+  success?: boolean;
   error: string | undefined;
 }
 
 const initialState: LabelState = {
   data: null,
   loading: false,
+  success: false,
   error: "",
 };
 
@@ -23,8 +25,12 @@ export const fetchLabels = createAsyncThunk("fetchLabels", async () => {
 export const createLabel = createAsyncThunk("createLabel", async(data: any) => {
 	const client = axiosClient();
 	try {
-		const label = await client.post("add-label", data)
-		return label;
+		const response = await client.post("add-label", data, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+		// return response.status;
 	} catch (error) {
 		console.log(error)
 	}
@@ -55,10 +61,12 @@ const labelSlice = createSlice({
 		builder.addCase(createLabel.fulfilled, (state, action: any) => {
 			state.data = action.payload;
 			state.loading = false;
+			state.success = true;
 		})
 		builder.addCase(createLabel.rejected, (state, action) => {
 			state.loading = false;
 			state.error = action.error.message;
+			state.success = false;
 		})
 	}
 })
