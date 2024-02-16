@@ -2,6 +2,11 @@ import React from "react";
 import { Modal, Box, TextField, IconButton, Button } from "@mui/material";
 import { CalendarMonth, Label } from "@mui/icons-material";
 import { style } from "./AddLabelModal";
+import {
+  ThemeProvider,
+  useTheme,
+} from "@mui/material/styles";
+import { customTheme } from "../assets/css/textFieldStyle";
 
 
 
@@ -10,6 +15,7 @@ type AddToDoModalTypes = {
   handleClose: any;
 };
 const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
+  const outerTheme = useTheme();
   return (
     <div className="text-gray-300">
       <Modal
@@ -19,13 +25,29 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <TextField label="To-do name" variant="standard" color="warning" />
-          <TextField
-            label="Description"
-            variant="standard"
-            color="warning"
-            margin="normal"
-          />
+          <ThemeProvider theme={customTheme(outerTheme)}>
+            <TextField
+              label="To-do name"
+              variant="standard"
+              color="warning"
+              InputLabelProps={{
+                style: {
+                  color: "#E0E3E7",
+                },
+              }}
+            />
+            <TextField
+              label="Description"
+              variant="standard"
+              color="warning"
+              margin="normal"
+              InputLabelProps={{
+                style: {
+                  color: "#E0E3E7",
+                },
+              }}
+            />
+          </ThemeProvider>
 
           <div className="flex justify-end">
             <IconButton color="warning" sx={{ padding: "10px" }}>
@@ -37,7 +59,14 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
           </div>
 
           <div className="flex justify-end mt-3">
-            <Button variant="outlined" color="secondary" sx={{ marginRight: "10px" }} onClick={handleClose}>Close</Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              sx={{ marginRight: "10px" }}
+              onClick={handleClose}
+            >
+              Close
+            </Button>
             <Button variant="outlined">Add To-Do</Button>
           </div>
         </Box>

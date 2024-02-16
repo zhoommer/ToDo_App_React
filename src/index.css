@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-blue: #4e79a7;
+  --color-light-blue: #76b7b2;
+  --color-yellow: #f28e2c;
+  --color-orange: #e15759;
+  --color-green: #59a14f;
+  --color-light-green: #8ff0a4;
+  --color-brown: #63452c;
+  --color-purple: #613583;
+  --color-light-purple: #dc8add;
+  --color-red: #e01b24;
+  --color-gray: #9a9996;
+}
