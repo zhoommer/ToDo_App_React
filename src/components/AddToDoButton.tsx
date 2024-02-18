@@ -1,19 +1,20 @@
 import { Add } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AddToDoModal from "./AddToDoModal";
 
 const AddToDoButton: React.FC = () => {
   const [openToDoModal, setOpenToDoModal] = useState<boolean>(false);
 
-
   // when keypress "a" AddToDoModal will open...
   // useEffect(() => {
-  //   window.addEventListener("keydown", (event: KeyboardEvent) => {
-  //     if (event.keyCode === 65) {
-  //       setOpenToDoModal(true);
-  //     }
-  //   });
+  //   if (title === "Inbox") {
+  //     window.addEventListener("keydown", (event: KeyboardEvent) => {
+  //       if (event.keyCode === 65) {
+  //         setOpenToDoModal(true);
+  //       }
+  //     });
+  //   }
   // }, []);
 
   const handleClose = () => setOpenToDoModal(false);

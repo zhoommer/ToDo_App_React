@@ -38,7 +38,7 @@ const Labels: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchLabels());
-  }, []);
+  }, [labels.success, labels.error]);
 
   const handleChangeCheckBox = (id: number) => {
     const isSelected = selectedCheckbox.includes(id);

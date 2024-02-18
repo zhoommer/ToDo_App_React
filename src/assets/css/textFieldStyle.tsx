@@ -1,7 +1,8 @@
 import { createTheme, Theme } from "@mui/material";
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 export const customTheme = (outerTheme: Theme) =>
-  createTheme({
+ createTheme({
     palette: {
       mode: outerTheme.palette.mode,
     },
@@ -9,11 +10,26 @@ export const customTheme = (outerTheme: Theme) =>
       MuiTextField: {
         styleOverrides: {
           root: {
-            "--TextField-brandBorderColor": "#E0E3E7",
-            "--TextField-brandBorderHoverColor": "#B2BAC2",
-            "--TextField-brandBorderFocusedColor": "orange",
-            "& label.Mui-focused": {
-              color: "var(--TextField-brandBorderFocusedColor)",
+            '--TextField-brandBorderColor': '#E0E3E7',
+            '--TextField-brandBorderHoverColor': '#B2BAC2',
+            '--TextField-brandBorderFocusedColor': '#6F7E8C',
+            '& label.Mui-focused': {
+              color: 'var(--TextField-brandBorderFocusedColor)',
+            },
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          notchedOutline: {
+            borderColor: 'var(--TextField-brandBorderColor)',
+          },
+          root: {
+            [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
+              borderColor: 'var(--TextField-brandBorderHoverColor)',
+            },
+            [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
+              borderColor: 'var(--TextField-brandBorderFocusedColor)',
             },
           },
         },
@@ -21,15 +37,14 @@ export const customTheme = (outerTheme: Theme) =>
       MuiFilledInput: {
         styleOverrides: {
           root: {
-            "&::before, &::after": {
-              borderBottom: "2px solid var(--TextField-brandBorderColor)",
+            '&::before, &::after': {
+              borderBottom: '2px solid var(--TextField-brandBorderColor)',
             },
-            "&:hover:not(.Mui-disabled, .Mui-error):before": {
-              borderBottom: "2px solid var(--TextField-brandBorderHoverColor)",
+            '&:hover:not(.Mui-disabled, .Mui-error):before': {
+              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
             },
-            "&.Mui-focused:after": {
-              borderBottom:
-                "2px solid var(--TextField-brandBorderFocusedColor)",
+            '&.Mui-focused:after': {
+              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
             },
           },
         },
@@ -37,18 +52,17 @@ export const customTheme = (outerTheme: Theme) =>
       MuiInput: {
         styleOverrides: {
           root: {
-            "&::before": {
-              borderBottom: "2px solid var(--TextField-brandBorderColor)",
+            '&::before': {
+              borderBottom: '2px solid var(--TextField-brandBorderColor)',
             },
-            "&:hover:not(.Mui-disabled, .Mui-error):before": {
-              borderBottom: "2px solid var(--TextField-brandBorderHoverColor)",
+            '&:hover:not(.Mui-disabled, .Mui-error):before': {
+              borderBottom: '2px solid var(--TextField-brandBorderHoverColor)',
             },
-            "&.Mui-focused:after": {
-              borderBottom:
-                "2px solid var(--TextField-brandBorderFocusedColor)",
+            '&.Mui-focused:after': {
+              borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
             },
           },
         },
       },
     },
-  });
+  }); 
