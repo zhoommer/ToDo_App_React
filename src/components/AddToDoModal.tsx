@@ -1,21 +1,52 @@
-import React from "react";
-import { Modal, Box, TextField, IconButton, Button } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Modal,
+  Box,
+  TextField,
+  IconButton,
+  Button,
+  Popper,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 import { CalendarMonth, Label } from "@mui/icons-material";
 import { style } from "./AddLabelModal";
-import {
-  ThemeProvider,
-  useTheme,
-} from "@mui/material/styles";
+import { ThemeProvider, useTheme } from "@mui/material/styles";
 import { customTheme } from "../assets/css/textFieldStyle";
-
-
+import { useAppSelector } from "../redux/app/store";
 
 type AddToDoModalTypes = {
   open: boolean;
   handleClose: any;
 };
 const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const openAnchor = Boolean(anchorEl);
+  const id = open ? "simple-popper" : undefined;
+
   const outerTheme = useTheme();
+
+  const labels = useAppSelector((state) => state.labels);
+
+  const [selectedCheckbox, setSelectedChecbox] = useState<number[]>([]);
+  const handleChangeCheckBox = (id: number) => {
+    const isSelected = selectedCheckbox.includes(id);
+    if (isSelected) {
+      setSelectedChecbox(selectedCheckbox.filter((item) => item !== id));
+    } else {
+      setSelectedChecbox([...selectedCheckbox, id]);
+    }
+  };
+
+  const handleAddToDoModal = () => {
+    console.log(selectedCheckbox)
+  }
   return (
     <div className="text-gray-300">
       <Modal
@@ -50,8 +81,46 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
           </ThemeProvider>
 
           <div className="flex justify-end">
-            <IconButton color="warning" sx={{ padding: "10px" }}>
+            <IconButton
+              color="warning"
+              sx={{ padding: "10px" }}
+              aria-describedby={id}
+              onClick={handleClick}
+            >
               <Label className="text-gray-300" />
+              <Popper
+                id={id}
+                open={openAnchor}
+                anchorEl={anchorEl}
+                style={{ zIndex: "9999" }}
+              >
+                <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                  {
+                    <FormGroup>
+                      {labels?.data?.map((label: any, index: any) => (
+                        <FormControlLabel
+                          key={index}
+                          control={
+                            <Checkbox
+                              onChange={() => {
+                                handleChangeCheckBox(index + 1);
+                              }}
+                              checked={selectedCheckbox.includes(index + 1)}
+                              sx={{
+                                color: label.color,
+                                "&.Mui-checked": {
+                                  color: label.color,
+                                },
+                              }}
+                            />
+                          }
+                          label={label.label}
+                        />
+                      ))}
+                    </FormGroup>
+                  }
+                </Box>
+              </Popper>
             </IconButton>
             <IconButton color="secondary" sx={{ padding: "10px" }}>
               <CalendarMonth className="text-gray-300" />
@@ -67,7 +136,7 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
             >
               Close
             </Button>
-            <Button variant="outlined">Add To-Do</Button>
+            <Button variant="outlined" onClick={handleAddToDoModal}>Add To-Do</Button>
           </div>
         </Box>
       </Modal>

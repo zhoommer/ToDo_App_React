@@ -13,19 +13,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/app/store";
 import AddLabelModal from "../../components/AddLabelModal";
 import { fetchLabels } from "../../redux/features/Labels/labelSlice";
 
-const checkboxColors = [
-  "#4e79a7",
-  "#f28e2c",
-  "#e15759",
-  "#76b7b2",
-  "#59a14f",
-  "#edc949",
-  "#af7aa1",
-  "#ff9da7",
-  "#9c755f",
-  "#bab0ab",
-];
-
 const Labels: React.FC = () => {
   const [selectedCheckbox, setSelectedChecbox] = useState<number[]>([]);
   const dispatch = useAppDispatch();
