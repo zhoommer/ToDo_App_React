@@ -10,6 +10,7 @@ export const customTheme = (outerTheme: Theme) =>
       MuiTextField: {
         styleOverrides: {
           root: {
+            color: "#f1f1f1",
             '--TextField-brandBorderColor': '#E0E3E7',
             '--TextField-brandBorderHoverColor': '#B2BAC2',
             '--TextField-brandBorderFocusedColor': '#f28e2c',
@@ -25,6 +26,7 @@ export const customTheme = (outerTheme: Theme) =>
             borderColor: 'var(--TextField-brandBorderColor)',
           },
           root: {
+            color: "#f1f1f1",
             [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
               borderColor: 'var(--TextField-brandBorderHoverColor)',
             },
@@ -37,6 +39,7 @@ export const customTheme = (outerTheme: Theme) =>
       MuiFilledInput: {
         styleOverrides: {
           root: {
+            color: "#f1f1f1",
             '&::before, &::after': {
               borderBottom: '2px solid var(--TextField-brandBorderColor)',
             },
@@ -52,6 +55,7 @@ export const customTheme = (outerTheme: Theme) =>
       MuiInput: {
         styleOverrides: {
           root: {
+            color: "#f1f1f1",
             '&::before': {
               borderBottom: '2px solid var(--TextField-brandBorderColor)',
             },
@@ -60,6 +64,7 @@ export const customTheme = (outerTheme: Theme) =>
             },
             '&.Mui-focused:after': {
               borderBottom: '2px solid var(--TextField-brandBorderFocusedColor)',
+              // color: "#f1f1f1",
             },
           },
         },

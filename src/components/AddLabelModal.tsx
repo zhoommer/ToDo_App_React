@@ -79,11 +79,17 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
               variant="outlined"
               color="warning"
               margin="normal"
+              style={{ color: "red" }}
               name="label"
               required
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setLabel(e.target.value)
               }
+              InputLabelProps={{
+                style: {
+                  color: "#E0E3E7"
+                }
+              }}
             />
           </ThemeProvider>
           <input

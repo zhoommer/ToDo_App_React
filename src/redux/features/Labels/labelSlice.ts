@@ -30,7 +30,6 @@ export const createLabel = createAsyncThunk("createLabel", async(data: any) => {
 				'Content-Type': 'application/json'
 			}
 		})
-		// return response.status;
 	} catch (error) {
 		console.log(error)
 	}
