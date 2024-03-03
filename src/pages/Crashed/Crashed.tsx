@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
 
 const Crashed = () => {
-  return (
-    <div className='text-red-600 uppercase'>
-        Oops! Something wrong...
-    </div>
-  )
-}
+  // text for commit
+  return <div className="text-red-600 uppercase">Oops! Something wrong...</div>;
+};
 
-export default Crashed
+export default Crashed;
