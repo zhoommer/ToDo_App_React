@@ -38,17 +38,18 @@ const Labels: React.FC = () => {
 
   return (
     <div>
-      { labels.loading && (
-        <CircularProgress color="inherit" />
-      ) }
-      {
-        labels.success && (
-          <Alert severity="success" color="success" variant="filled" className="absolute bottom-20 left-30">
-            <AlertTitle>Success</AlertTitle>
-            Label added successfully.
-          </Alert>
-        )
-      }
+      {labels.loading && <CircularProgress color="inherit" />}
+      {labels.success && (
+        <Alert
+          severity="success"
+          color="success"
+          variant="filled"
+          className="absolute bottom-20 left-30"
+        >
+          <AlertTitle>Success</AlertTitle>
+          Label added successfully.
+        </Alert>
+      )}
       <AddLabelModal
         open={openAddLabelModal}
         handleClose={handleCloseAddLabelModal}
