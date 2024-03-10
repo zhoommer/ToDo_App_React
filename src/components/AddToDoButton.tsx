@@ -22,7 +22,11 @@ const AddToDoButton: React.FC = () => {
     <div>
       <AddToDoModal open={openToDoModal} handleClose={handleClose} />
       <div className="absolute bottom-20 right-20 border border-blue-700 rounded-full bg-blue-700 p-1 hover:bg-blue-500">
-        <IconButton color="primary" onClick={() => setOpenToDoModal(true)}>
+        <IconButton
+          color="primary"
+          onClick={() => setOpenToDoModal(true)}
+          className="hover:rotate-180 hover:transition 250ms ease-in"
+        >
           <Add className="text-white" />
         </IconButton>
       </div>
