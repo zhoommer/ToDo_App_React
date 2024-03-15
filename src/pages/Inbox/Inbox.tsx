@@ -1,12 +1,12 @@
-import React from 'react'
-import InfoMessage from '../../components/InfoMessage'
+import React from "react";
+import InfoMessage from "../../components/InfoMessage";
 
-const Inbox = () => {
+const Inbox: React.FC = () => {
   return (
     <div>
-        <InfoMessage />
+      <InfoMessage />
     </div>
-  )
-}
+  );
+};
 
-export default Inbox
+export default Inbox;

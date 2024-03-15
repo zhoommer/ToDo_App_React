@@ -39,7 +39,7 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
   const [color, setColor] = useState<string>("");
   const [disabledButton, setDisabledButton] = useState<boolean>(false);
   const outerTheme = useTheme();
-  const labels = useAppSelector((state) => state.labels)
+  const labels = useAppSelector((state) => state.labels);
 
   useEffect(() => {
     if (label.length > 0 && color.length > 0) {
@@ -55,7 +55,9 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
         label: label,
         color: color,
       };
-      dispatch(createLabel(data)).then(() => { handleClose(false) })
+      dispatch(createLabel(data)).then(() => {
+        handleClose(false);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -87,8 +89,8 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
               }
               InputLabelProps={{
                 style: {
-                  color: "#E0E3E7"
-                }
+                  color: "#E0E3E7",
+                },
               }}
             />
           </ThemeProvider>
@@ -110,11 +112,7 @@ const AddLabelModal: React.FC<AddLabelModal> = ({ open, handleClose }) => {
               disabled={disabledButton}
             >
               Add Label
-              {
-                labels.loading && (
-                  <CircularProgress color="primary" size={30}/>
-                )
-              }
+              {labels.loading && <CircularProgress color="primary" size={30} />}
             </Button>
           </div>
         </Box>

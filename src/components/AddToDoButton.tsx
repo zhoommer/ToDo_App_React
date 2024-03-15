@@ -8,14 +8,14 @@ const AddToDoButton: React.FC = () => {
 
   // when keypress "a" AddToDoModal will open...
   // useEffect(() => {
-  //   if (title === "Inbox") {
-  //     window.addEventListener("keydown", (event: KeyboardEvent) => {
-  //       if (event.keyCode === 65) {
-  //         setOpenToDoModal(true);
-  //       }
-  //     });
-  //   }
-  // }, []);
+  //if (title === "Inbox") {
+  // window.addEventListener("keydown", (event: KeyboardEvent) => {
+  //  if (event.keyCode === 65) {
+  //   setOpenToDoModal(true);
+  // }
+  //});
+  // }
+  //}, [title]);
 
   const handleClose = () => setOpenToDoModal(false);
   return (

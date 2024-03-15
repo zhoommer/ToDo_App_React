@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Modal,
   Box,
@@ -15,6 +15,7 @@ import { style } from "./AddLabelModal";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import { customTheme } from "../assets/css/textFieldStyle";
 import { useAppSelector } from "../redux/app/store";
+import "../assets/css/dateInputStyle.css";
 
 type AddToDoModalTypes = {
   open: boolean;
@@ -28,7 +29,7 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
   };
 
   const openAnchor = Boolean(anchorEl);
-  const id = open ? "simple-popper" : undefined;
+  const id = open ? "labels-popper" : undefined;
 
   const outerTheme = useTheme();
 
@@ -36,6 +37,7 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
 
   const [selectedCheckbox, setSelectedChecbox] = useState<number[]>([]);
   const handleChangeCheckBox = (id: number) => {
+    setAnchorEl(anchorEl);
     const isSelected = selectedCheckbox.includes(id);
     if (isSelected) {
       setSelectedChecbox(selectedCheckbox.filter((item) => item !== id));
@@ -44,9 +46,17 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
     }
   };
 
+  const dateInputRef = useRef<HTMLInputElement>(null);
+
+  const handleHiddenDateInput = () => {
+    if (dateInputRef.current) {
+      dateInputRef.current.style.opacity = "1";
+    }
+  };
+
   const handleAddToDoModal = () => {
-    console.log(selectedCheckbox)
-  }
+    console.log(selectedCheckbox);
+  };
   return (
     <div className="text-gray-300">
       <Modal
@@ -78,6 +88,8 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
                 },
               }}
             />
+
+            <input type={"date"} ref={dateInputRef} />
           </ThemeProvider>
 
           <div className="flex justify-end">
@@ -94,7 +106,14 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
                 anchorEl={anchorEl}
                 style={{ zIndex: "9999" }}
               >
-                <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+                <Box
+                  sx={{
+                    border: 1,
+                    p: 1,
+                    bgcolor: "background.paper",
+                    borderRadius: ".5em",
+                  }}
+                >
                   {
                     <FormGroup>
                       {labels?.data?.map((label: any, index: any) => (
@@ -122,7 +141,11 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
                 </Box>
               </Popper>
             </IconButton>
-            <IconButton color="secondary" sx={{ padding: "10px" }}>
+            <IconButton
+              color="secondary"
+              sx={{ padding: "10px" }}
+              onClick={handleHiddenDateInput}
+            >
               <CalendarMonth className="text-gray-300" />
             </IconButton>
           </div>
@@ -136,7 +159,13 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
             >
               Close
             </Button>
-            <Button variant="outlined" onClick={handleAddToDoModal}>Add To-Do</Button>
+            <Button
+              variant="outlined"
+              onClick={handleAddToDoModal}
+              className="addToDoButton"
+            >
+              Add To-Do
+            </Button>
           </div>
         </Box>
       </Modal>

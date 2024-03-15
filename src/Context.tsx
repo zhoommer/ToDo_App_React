@@ -1,14 +1,14 @@
 import { createContext, useContext } from "react";
 
-
 export type NaviTitleType = {
-    title: string;
-    setTitle: any;
-}
+  title: string;
+  setTitle: any;
+};
 
 const navbarTitleContext = createContext<NaviTitleType>({
-    title: "",
-    setTitle: () => {}
+  title: "",
+  setTitle: () => {},
 });
 
-export { navbarTitleContext, useContext }
+export { navbarTitleContext, useContext };
+

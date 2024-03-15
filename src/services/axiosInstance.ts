@@ -35,21 +35,21 @@ const axiosClient = (token: string | null = null): AxiosInstance => {
         const { response } = error;
         if (response?.status === 401) {
           localStorage.removeItem("ACCESS_TOKEN");
-        }
-        else if (response?.status === 500) {
-          alert("Something wrong!")
+        } else if (response?.status === 500) {
+          alert("Something wrong!");
         }
       } catch (e) {
         console.error(e);
-        if(error.response?.status === 500) {
-          alert("Something wrong!")
+        if (error.response?.status === 500) {
+          alert("Something wrong!");
         }
       }
       throw error;
-    }
+    },
   );
 
   return client;
 };
 
 export default axiosClient;
+
