@@ -9,24 +9,42 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Snackbar,
+  SnackbarOrigin,
 } from "@mui/material";
 import { CalendarMonth, Label } from "@mui/icons-material";
 import { style } from "./AddLabelModal";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import { customTheme } from "../assets/css/textFieldStyle";
-import { useAppSelector } from "../redux/app/store";
+import { useAppDispatch, useAppSelector } from "../redux/app/store";
 import "../assets/css/dateInputStyle.css";
+import { addToDo } from "../redux/features/ToDo/addToDoSlice";
+
+interface SnackState extends SnackbarOrigin {
+  show: boolean;
+  message: string;
+}
 
 type AddToDoModalTypes = {
   open: boolean;
   handleClose: any;
 };
 const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
+  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
+
+  const [snackbar, setsnacbar] = useState<SnackState>({
+    show: false,
+    message: "",
+    vertical: "top",
+    horizontal: "right",
+  });
+
+  const { show, message, vertical, horizontal } = snackbar;
 
   const openAnchor = Boolean(anchorEl);
   const id = open ? "labels-popper" : undefined;
@@ -36,6 +54,9 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
   const labels = useAppSelector((state) => state.labels);
 
   const [selectedCheckbox, setSelectedChecbox] = useState<number[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [description, setdescription] = useState<string>("");
+  const [schedule, setschedule] = useState<string>("");
   const handleChangeCheckBox = (id: number) => {
     setAnchorEl(anchorEl);
     const isSelected = selectedCheckbox.includes(id);
@@ -54,11 +75,49 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
     }
   };
 
-  const handleAddToDoModal = () => {
-    console.log(selectedCheckbox);
+  const handleAddToDoModal = async () => {
+    let data = {
+      title: title,
+      description: description,
+      labels: selectedCheckbox,
+      schedule: schedule,
+    };
+    try {
+      const res = await dispatch(addToDo(data));
+      if (res.meta.requestStatus === "fulfilled") {
+        setTitle("");
+        setdescription("");
+        setSelectedChecbox([]);
+        setschedule("");
+        setsnacbar({
+          show: true,
+          message: "ToDo was created successfully",
+          vertical: "top",
+          horizontal: "right",
+        });
+
+        setTimeout(() => {
+          setsnacbar({
+            show: false,
+            message: "",
+            vertical: "top",
+            horizontal: "right",
+          });
+        }, 5000);
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
   return (
     <div className="text-gray-300">
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={show}
+        message={message}
+        key={vertical + horizontal}
+        autoHideDuration={3}
+      />
       <Modal
         open={open}
         onClose={handleClose}
@@ -68,6 +127,10 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
         <Box sx={style}>
           <ThemeProvider theme={customTheme(outerTheme)}>
             <TextField
+              value={title}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setTitle(e.target.value);
+              }}
               label="To-do name"
               variant="standard"
               color="warning"
@@ -78,6 +141,10 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
               }}
             />
             <TextField
+              value={description}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setdescription(e.target.value)
+              }
               label="Description"
               variant="standard"
               color="warning"
@@ -89,7 +156,14 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
               }}
             />
 
-            <input type={"date"} ref={dateInputRef} />
+            <input
+              value={schedule}
+              type={"date"}
+              ref={dateInputRef}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setschedule(e.target.value)
+              }
+            />
           </ThemeProvider>
 
           <div className="flex justify-end">
