@@ -77,4 +77,3 @@ const labelSlice = createSlice({
 });
 
 export default labelSlice.reducer;
-
