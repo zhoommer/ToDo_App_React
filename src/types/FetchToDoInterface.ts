@@ -1,3 +1,10 @@
+interface Labels {
+  id: number;
+  label: string;
+  color: string;
+  toDoId: number;
+}
+
 interface Data {
   id: number;
   title: string;
@@ -5,7 +12,7 @@ interface Data {
   schedule?: string;
   createdAt: string;
   updatedAt: string;
-  labels?: [];
+  labels?: [Labels];
 }
 
 export interface FetchToDoInterface {

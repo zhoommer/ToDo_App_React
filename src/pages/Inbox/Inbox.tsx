@@ -4,6 +4,15 @@ import { useAppDispatch } from "../../redux/app/store";
 import { useAppSelector } from "../../redux/app/store";
 import { fetchToDos } from "../../redux/features/ToDo/fetchToDoSlice";
 import Variants from "../../components/Skeleton";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Box,
+  Button,
+} from "@mui/material";
+import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
 type Label = {
   id: number;
@@ -27,16 +36,34 @@ const Inbox: React.FC = () => {
       ) : response.data ? (
         <div>
           {response.data.data?.map((item, index) => (
-            <div
-              key={index}
-              className="text-white border border-white mt-3 rounded p-2"
-            >
-              <div className="flex">
-                <div>{item.schedule}</div>
-                <div>{item.title}</div>
-              </div>
-              <div>{item.labels?.map((label: Label) => label.label)}</div>
-            </div>
+            <Accordion key={index}>
+              <AccordionSummary
+                expandIcon={<ArrowDropDownIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
+                className="border"
+              >
+                <Typography variant="h5">{item.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails className="flex-1">
+                <Typography variant="body1">{item.description}</Typography>
+                <Box>
+                  {item.labels?.map((label) => (
+                    <Button
+                      size="small"
+                      variant="contained"
+                      style={{
+                        color: "#f1f1f1",
+                        backgroundColor: `${label.color}`,
+                        marginLeft: "1rem",
+                      }}
+                    >
+                      {label.label}
+                    </Button>
+                  ))}
+                </Box>
+              </AccordionDetails>
+            </Accordion>
           ))}
         </div>
       ) : (
