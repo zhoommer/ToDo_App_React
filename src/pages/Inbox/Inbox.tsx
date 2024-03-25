@@ -14,13 +14,6 @@ import {
 } from "@mui/material";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
-type Label = {
-  id: number;
-  label: string;
-  color: string;
-  toDoId: number;
-};
-
 const Inbox: React.FC = () => {
   const dispatch = useAppDispatch();
   const response = useAppSelector((state) => state.todos);
@@ -61,6 +54,8 @@ const Inbox: React.FC = () => {
                       {label.label}
                     </Button>
                   ))}
+
+                  <input type={"date"} value={item.schedule} color={"black"} />
                 </Box>
               </AccordionDetails>
             </Accordion>

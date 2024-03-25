@@ -85,10 +85,6 @@ const AddToDoModal: React.FC<AddToDoModalTypes> = ({ open, handleClose }) => {
     try {
       const res = await dispatch(addToDo(data));
       if (res.meta.requestStatus === "fulfilled") {
-        setTitle("");
-        setdescription("");
-        setSelectedChecbox([]);
-        setschedule("");
         setsnacbar({
           show: true,
           message: "ToDo was created successfully",
