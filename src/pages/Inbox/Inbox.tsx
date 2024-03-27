@@ -41,8 +41,9 @@ const Inbox: React.FC = () => {
               <AccordionDetails className="flex-1">
                 <Typography variant="body1">{item.description}</Typography>
                 <Box>
-                  {item.labels?.map((label) => (
+                  {item.labels?.map((label, index) => (
                     <Button
+                      key={index}
                       size="small"
                       variant="contained"
                       style={{
